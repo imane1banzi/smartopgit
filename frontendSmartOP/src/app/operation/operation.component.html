@@ -1,0 +1,148 @@
+
+<div class="input-group mb-3" style="margin-top: 20px">
+
+  <input type="text" class="form-control" placeholder="Rechercher par matricule, Code Opération, demandeur, ou catégorie" [(ngModel)]="searchQuery" aria-label="Recherche" aria-describedby="button-addon2">
+  <button class="btn btn-outline-secondary" type="button" (click)="onCombinedSearch()">Rechercher</button>
+  <button class="btn btn-outline-secondary" type="button"   (click)="exportToCSV()">Exporter en CSV</button>
+</div>
+
+<form (ngSubmit)="onSubmit()" [formGroup]="userFormGroup">
+  <table class="table" style="margin-top: 20px">
+    <thead>
+    <tr>
+      <th scope="col">Titre</th>
+      <th scope="col">Dept</th>
+      <th scope="col">EquipementOP</th>
+      <th scope="col">Demandeur</th>
+      <th scope="col">categorie</th>
+      <th scope="col">CodeOP</th>
+      <th scope="col">Datedemande</th>
+      <th scope="col">Dateprevisionelle</th>
+      <th scope="col">Dernieremodif</th>
+      <th scope="col">Commentaire</th>
+      <th scope="col">Statut</th>
+      <th scope="col">Matricule</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let valueuser of paginatedData" (click)="onSelect(valueuser)" [ngClass]="{'table-active': selectedUser?.id === valueuser.id}">
+      <td>{{valueuser.titre}}</td>
+      <td>{{valueuser.dept}}</td>
+      <td>{{valueuser.equipementImpacte}}</td>
+      <td>{{valueuser.demandeur}}</td>
+      <td>{{valueuser.categorie}}</td>
+      <td>{{valueuser.codeOP}}</td>
+      <td>{{valueuser.dateDemande | date: 'dd/MM/yyyy'}}</td>
+      <td>{{valueuser.datePrevisionelle | date: 'dd/MM/yyyy'}}</td>
+      <td>{{valueuser.derniereModification}}</td>
+      <td>{{valueuser.commentaire}}</td>
+      <td>{{valueuser.enumStatutOP}}</td>
+      <td>{{valueuser.matricule}}</td>
+    </tr>
+    </tbody>
+  </table>
+</form>
+
+<nav>
+  <ul class="pagination">
+    <li class="page-item" [class.disabled]="currentPage === 1">
+      <a class="page-link" (click)="changePage(1)" aria-label="First">
+        <span aria-hidden="true">&laquo;&laquo;</span>
+      </a>
+    </li>
+    <li class="page-item" [class.disabled]="currentPage === 1">
+      <a class="page-link" (click)="changePage(currentPage - 1)" aria-label="Previous">
+        <span aria-hidden="true">&laquo;</span>
+      </a>
+    </li>
+    <li class="page-item" *ngFor="let page of pages" [class.active]="currentPage === page">
+      <a class="page-link" (click)="changePage(page)">{{page}}</a>
+    </li>
+    <li class="page-item" [class.disabled]="currentPage === totalPages">
+      <a class="page-link" (click)="changePage(currentPage + 1)" aria-label="Next">
+        <span aria-hidden="true">&raquo;</span>
+      </a>
+    </li>
+    <li class="page-item" [class.disabled]="currentPage === totalPages">
+      <a class="page-link" (click)="changePage(totalPages)" aria-label="Last">
+        <span aria-hidden="true">&raquo;&raquo;</span>
+      </a>
+    </li>
+  </ul>
+</nav>
+
+<div class="card" style="width: 90%; padding: 2%;">
+  <div class="card-header">
+    <h5>Nouvelle Opération</h5>
+  </div>
+  <div class="card-body">
+    <h5 class="card-title">Informations</h5>
+    <p class="card-text">Prière de remplir le formulaire opération</p>
+
+    <form [formGroup]="userFormGroup" (ngSubmit)="onSubmit()">
+      <div class="d-flex flex-wrap gap-3">
+        <div class="col-md-3">
+          <label for="inputtitre" class="form-label">Titre</label>
+          <input type="text" class="form-control" id="inputtitre" formControlName="titre" required>
+        </div>
+        <div class="col-md-3">
+          <label for="inputdept" class="form-label">Dept</label>
+          <input type="text" class="form-control" id="inputdept" formControlName="dept" required>
+        </div>
+        <div class="col-md-3">
+          <label for="inputequipement" class="form-label">Equipement Impacté</label>
+          <input type="text" class="form-control" id="inputequipement" formControlName="equipementImpacte" required>
+        </div>
+        <div class="col-md-3">
+          <label for="inputdemandeur" class="form-label">Demandeur</label>
+          <input type="text" class="form-control" id="inputdemandeur" formControlName="demandeur" required>
+        </div>
+        <div class="col-md-3">
+          <label for="inputcategorie" class="form-label">Categorie</label>
+          <input type="text" class="form-control" id="inputcategorie" formControlName="categorie" required>
+        </div>
+        <div class="col-md-3">
+          <label for="inputcodeop" class="form-label">Code Opération</label>
+          <input type="text" class="form-control" id="inputcodeop" formControlName="codeOP" required>
+        </div>
+        <div class="col-md-3">
+          <label for="inputdateDemande" class="form-label">Date Demande</label>
+          <input type="text" class="form-control" id="inputdateDemande" formControlName="dateDemande" required>
+        </div>
+        <div class="col-md-3">
+          <label for="inputdatePrevisionelle" class="form-label">Date Previsionelle</label>
+          <input type="text" class="form-control" id="inputdatePrevisionelle" formControlName="datePrevisionelle" required>
+        </div>
+        <div class="col-md-3">
+          <label for="inputderniereModification" class="form-label">Derniere Modification</label>
+          <input type="text" class="form-control" id="inputderniereModification" formControlName="derniereModification" required>
+        </div>
+        <div class="col-md-3">
+          <label for="inputcommentaire" class="form-label">commentaire</label>
+          <input type="text" class="form-control" id="inputcommentaire" formControlName="commentaire" required>
+        </div>
+        <div class="col-md-3">
+          <label for="inputstatutOP" class="form-label">Statut Opération</label>
+          <select class="form-control" id="inputstatutOP" formControlName="enumStatutOP" required>
+            <option value="PLANIFIE">PLANIFIE</option>
+            <option value="ENCOURS">ENCOURS</option>
+            <option value="TERMINE">TERMINE</option>
+            <option value="REPLANIFIE">REPLANIFIE</option>
+          </select>
+        </div>
+        <div class="col-md-3">
+          <label for="inpututilisateur" class="form-label">Matricule Utilisateur</label>
+          <input type="text" class="form-control" id="inpututilisateur" formControlName="matricule" required>
+        </div>
+      </div>
+      <div class="mt-3">
+        <button type="submit" class="btn btn-primary">Créer</button>
+        <button type="button" class="btn btn-primary" (click)="onModify()" style="margin-left: 20px">Modifier</button>
+        <button type="button" class="btn btn-danger" (click)="onDelete()" style="margin-left: 20px">Supprimer</button>
+      </div>
+
+  </form>
+
+  </div>
+</div>
+

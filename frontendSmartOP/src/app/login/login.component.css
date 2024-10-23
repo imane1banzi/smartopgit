@@ -1,0 +1,63 @@
+.header-container {
+  display: flex;
+  align-items: center;
+}
+
+.header-container img {
+  margin-right: 10px; /* Espace entre l'image et le titre */
+}
+
+.header-container h3 {
+  color: #0056b3; /* Couleur du titre */
+  margin-left: 80px;
+}
+.auth-container {
+    max-width: 480px;
+    margin: auto;
+    padding: 20px;
+    background-color: #f0f8ff; /* Utilisation d'un bleu clair */
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-top: 100px
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+input[type="text"],
+input[type="password"] {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    box-sizing: border-box;
+}
+
+button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff; /* Bleu clair pour le bouton */
+    color: white;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0056b3; /* Variation de couleur au survol */
+}
+
+.error-message {
+    color: red;
+    font-size: 14px;
+    margin-top: 10px;
+}

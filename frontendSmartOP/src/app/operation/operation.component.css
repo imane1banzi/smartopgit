@@ -1,0 +1,18 @@
+th{
+  color: dimgray;
+}
+.card-header{
+  color: dimgray;
+
+}
+label{
+  color: #303030;
+}
+.table-active {
+  background-color: #d3d3d3; /* Changez la couleur selon vos préférences */
+}
+.error-message {
+  color: red;
+  font-size: 14px;
+  margin-top: 10px;
+}
